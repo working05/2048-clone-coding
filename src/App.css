@@ -1,42 +1,74 @@
 #root {
-  max-width: 1280px;
+  width: 600px;
+  height: 700px;
+  background-color: antiquewhite;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 30px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.game-title {
+  font-size: 50px;
+  font-weight: bolder;
+  color: rgb(117, 109, 100);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  background-color: rgb(159, 148, 134);
+  margin: auto;
+  gap: 12px;
+  border-radius: 12px;
+  padding: 12px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  font-size: 54px;
+  font-weight: bolder;
+  border-radius: 12px;
 }
 
-.card {
-  padding: 2em;
+.cell.cell-0 {
+  background-color: rgb(196, 183, 167);
 }
 
-.read-the-docs {
-  color: #888;
+.cell.cell-2 {
+  background-color: rgb(254, 238, 216);
+  color: rgb(117, 109, 100);
+}
+
+.cell.cell-4 {
+  background-color: rgb(249, 225, 194);
+  color: rgb(117, 109, 100);
+}
+
+.cell.cell-8 {
+  background-color: rgb(255, 170, 117);
+  color: rgb(255, 255, 255);
+}
+
+.cell.cell-16 {
+  background-color: rgb(255, 146, 96);
+  color: rgb(255, 255, 255);
+}
+
+.cell.cell-32 {
+  background-color: rgb(250, 131, 92);
+  color: rgb(255, 255, 255);
+}
+
+.cell.cell-64 {
+  background-color: rgb(255, 88, 46);
+  color: rgb(255, 255, 255);
+}
+
+.cell.cell-128 {
+  background-color: rgb(242, 209, 76);
+  color: rgb(255, 255, 255);
 }
