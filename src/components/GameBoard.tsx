@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect } from 'react';
 
+import { moveBlocks } from '../utils/Functions';
 import type { State } from './Types';
 
 function Cell({ value }: CellProp) {
@@ -9,11 +10,46 @@ function Cell({ value }: CellProp) {
 }
 
 function GameBoard({ state, setState }: BoardProps) {
-  const test = () => {
-    setState(state);
+  const handleKeyDown = (e: KeyboardEvent) => {
+    let obj = { board: state.board, score: state.score };
+
+    switch (e.key) {
+      case 'ArrowLeft':
+        obj = moveBlocks(state.board, 0);
+        break;
+      case 'ArrowDown':
+        obj = moveBlocks(state.board, 1);
+        break;
+      case 'ArrowRight':
+        obj = moveBlocks(state.board, 2);
+        break;
+      case 'ArrowUp':
+        obj = moveBlocks(state.board, 3);
+        break;
+      default:
+        break;
+    }
+
+    let best = state.bestScore;
+
+    if (best < obj.score + state.score) {
+      best = obj.score + state.score;
+      localStorage.setItem('best', String(best));
+    }
+
+    setState({
+      board: obj.board,
+      score: obj.score + state.score,
+      bestScore: best,
+    });
   };
 
-  useEffect(() => test);
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
 
   return (
     <div className="board">
