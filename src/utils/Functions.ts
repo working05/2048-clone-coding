@@ -1,4 +1,4 @@
-import type { Board, CellPos } from '../components/Types';
+import type { Board, CellPos, State } from '../components/Types';
 
 const boardReset = (): Board => [
   [0, 0, 0, 0],
@@ -6,6 +6,25 @@ const boardReset = (): Board => [
   [0, 0, 0, 0],
   [0, 0, 0, 0],
 ];
+
+export const resetGame = (
+  setState: React.Dispatch<React.SetStateAction<State>>,
+) => {
+  const best = localStorage.getItem('best');
+  const board: Board = newBoard();
+
+  if (best === null) {
+    localStorage.setItem('best', '0');
+  }
+  setState({
+    score: 0,
+    bestScore: best === null ? 0 : parseInt(best),
+    board: board,
+    isFail: false,
+    isSuccess: false,
+    isContinue: false,
+  });
+};
 
 const newBlock = (board: Board): Board => {
   const emptyCells: CellPos[] = [];
@@ -32,7 +51,7 @@ const newBlock = (board: Board): Board => {
   );
 };
 
-export const newBoard = (): Board => {
+const newBoard = (): Board => {
   return newBlock(newBlock(boardReset()));
 };
 
@@ -84,7 +103,27 @@ const rotateBoard = (board: Board, dir: number): Board => {
   }
 };
 
-export const moveBlocks = (board: Board, dir: number) => {
+export const checkFail = (board: Board): boolean => {
+  for (let i = 1; i <= 4; i++) {
+    const obj = moveBoard(board, i);
+    if (board.join() !== obj.board.join()) return false;
+  }
+  return true;
+};
+
+export const checkSuccess = (board: Board): boolean => {
+  let bool = false;
+  board.map((row) => {
+    row.map((value) => {
+      if (value >= 16) {
+        bool = true;
+      }
+    });
+  });
+  return bool;
+};
+
+export const moveBoard = (board: Board, dir: number) => {
   const rotatedBoard = rotateBoard(board, dir);
   const movedBoard: Board = [];
   let scorePlus = 0,
