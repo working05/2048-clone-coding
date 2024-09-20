@@ -53,7 +53,7 @@
 
 .button {
   width: 150px;
-  height: 40px;
+  height: 50px;
   background-color: rgb(196, 183, 167);
   border: none;
   border-radius: 6px;
@@ -78,7 +78,7 @@
   justify-content: center;
   align-items: center;
   aspect-ratio: 1;
-  font-size: 54px;
+  font-size: 48px;
   font-weight: bolder;
   border-radius: 12px;
 }
