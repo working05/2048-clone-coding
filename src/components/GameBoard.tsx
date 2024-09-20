@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect } from 'react';
 
-import { moveBlocks } from '../utils/Functions';
+import { checkFail, checkSuccess, moveBoard } from '../utils/Functions';
 import type { State } from './Types';
 
 function Cell({ value }: CellProp) {
@@ -13,21 +13,23 @@ function GameBoard({ state, setState }: BoardProps) {
   const handleKeyDown = (e: KeyboardEvent) => {
     let obj = { board: state.board, score: state.score };
 
+    if (state.isFail || (state.isSuccess && !state.isContinue)) return;
+
     switch (e.key) {
       case 'ArrowLeft':
-        obj = moveBlocks(state.board, 0);
+        obj = moveBoard(state.board, 0);
         break;
       case 'ArrowDown':
-        obj = moveBlocks(state.board, 1);
+        obj = moveBoard(state.board, 1);
         break;
       case 'ArrowRight':
-        obj = moveBlocks(state.board, 2);
+        obj = moveBoard(state.board, 2);
         break;
       case 'ArrowUp':
-        obj = moveBlocks(state.board, 3);
+        obj = moveBoard(state.board, 3);
         break;
       default:
-        break;
+        return;
     }
 
     let best = state.bestScore;
@@ -38,6 +40,7 @@ function GameBoard({ state, setState }: BoardProps) {
     }
 
     setState({
+      ...state,
       board: obj.board,
       score: obj.score + state.score,
       bestScore: best,
@@ -51,14 +54,38 @@ function GameBoard({ state, setState }: BoardProps) {
     };
   });
 
+  const checkGameEnd = () => {
+    if (!state.isSuccess && checkSuccess(state.board)) {
+      setState({
+        ...state,
+        isSuccess: true,
+      });
+    }
+
+    if (!state.isFail && checkFail(state.board)) {
+      setState({
+        ...state,
+        isFail: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    checkGameEnd();
+  }),
+    [state];
+
   return (
-    <div className="board">
-      {state.board.map((row, rowIdx) =>
-        row.map((value, colIdx) => (
-          <Cell key={10 * rowIdx + colIdx} value={value} />
-        )),
-      )}
-    </div>
+    <>
+      <div className="board">
+        {state.board.map((row, rowIdx) =>
+          row.map((value, colIdx) => (
+            <Cell key={10 * rowIdx + colIdx} value={value} />
+          )),
+        )}
+      </div>
+      {}
+    </>
   );
 }
 

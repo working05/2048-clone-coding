@@ -14,6 +14,8 @@
 }
 
 .board {
+  width: 540px;
+  height: 540px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -22,6 +24,38 @@
   gap: 12px;
   border-radius: 12px;
   padding: 12px;
+}
+
+.modal-overlay {
+  position: relative;
+  top: -75%;
+  left: 0%;
+  width: 540px;
+  height: 540px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 540px;
+  height: 540px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.message {
+  font-size: 70px;
+  font-weight: bolder;
+  color: rgb(65, 61, 58);
+  margin: auto;
+  margin-top: 150px;
+  margin-bottom: -100px;
 }
 
 .container {
@@ -49,6 +83,12 @@
   font-size: 30px;
   font-weight: bolder;
   color: white;
+}
+
+.button-container {
+  width: 350px;
+  display: flex;
+  margin: auto;
 }
 
 .button {

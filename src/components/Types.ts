@@ -8,4 +8,7 @@ export type State = {
   score: number;
   bestScore: number;
   board: Board;
+  isFail: boolean;
+  isSuccess: boolean;
+  isContinue: boolean;
 };

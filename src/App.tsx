@@ -4,26 +4,17 @@ import { useEffect, useState } from 'react';
 
 import Button from './components/Button';
 import GameBoard from './components/GameBoard';
-import type { Board, State } from './components/Types';
-import { newBoard } from './utils/Functions';
+import Modal from './components/Modal';
+import type { State } from './components/Types';
+import { resetGame } from './utils/Functions';
 
 function App() {
   useEffect(() => {
-    resetGame();
+    reset();
   }, []);
 
-  const resetGame = () => {
-    const best = localStorage.getItem('best');
-    const board: Board = newBoard();
-
-    if (best === null) {
-      localStorage.setItem('best', '0');
-    }
-    setState({
-      score: 0,
-      bestScore: best === null ? 0 : parseInt(best),
-      board: board,
-    });
+  const reset = () => {
+    resetGame(setState);
   };
 
   const [state, setState] = useState<State>({
@@ -35,6 +26,9 @@ function App() {
       [0, 0, 0, 0],
       [0, 0, 0, 0],
     ],
+    isFail: false,
+    isSuccess: false,
+    isContinue: false,
   });
 
   return (
@@ -50,11 +44,12 @@ function App() {
           <span className="style-text">BEST</span>
           <span className="style-num">{state.bestScore}</span>
         </div>
-        <Button text="New Game" onClick={resetGame} />
+        <Button text="New Game" onClick={reset} />
       </div>
       <br />
       <div></div>
       <GameBoard state={state} setState={setState} />
+      <Modal state={state} setState={setState} />
     </>
   );
 }
