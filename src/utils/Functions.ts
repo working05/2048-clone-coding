@@ -115,7 +115,7 @@ export const checkSuccess = (board: Board): boolean => {
   let bool = false;
   board.map((row) => {
     row.map((value) => {
-      if (value >= 16) {
+      if (value === 128) {
         bool = true;
       }
     });
