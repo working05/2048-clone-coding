@@ -1,0 +1,21 @@
+.button {
+  width: 150px;
+  height: 50px;
+  background-color: rgb(196, 183, 167);
+  border: none;
+  border-radius: 6px;
+  color: rgb(67, 60, 53);
+  font-size: 20px;
+  font-weight: bold;
+  margin: auto;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background-color: rgb(222, 206, 187);
+}
+
+.button:active {
+  background-color: rgb(172, 160, 146);
+}

@@ -1,0 +1,32 @@
+.gameTitle {
+  font-size: 50px;
+  font-weight: bolder;
+  color: rgb(117, 109, 100);
+}
+
+.container {
+  display: flex;
+  gap: 12px;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(196, 183, 167);
+  width: 120px;
+  height: 60px;
+  border-radius: 6px;
+  line-height: 26px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: bolder;
+  color: rgb(254, 238, 216);
+}
+
+.number {
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+}
