@@ -1,36 +1,49 @@
 import type React from 'react';
 import { useEffect } from 'react';
 
-import { checkFail, checkSuccess, moveBoard, newBlock } from '../utils/Functions';
+import styles from '../styles/GameBoard.module.css';
+import {
+  checkFail,
+  checkSuccess,
+  moveBoard,
+  newBlock,
+} from '../utils/Functions';
 import type { State } from './Types';
 
 function Cell({ value }: CellProp) {
-  const cellName = 'cell cell-' + String(value >= 128 ? 128 : value);
-  return <div className={cellName}>{value === 0 ? '' : value}</div>;
+  const baseClass = styles.cell;
+  if (baseClass === undefined) return <></>;
+
+  const cellValueClass = styles[`cell${value >= 128 ? 128 : value}`];
+  if (cellValueClass === undefined) return <></>;
+
+  const cellClass = `${baseClass} ${cellValueClass}`;
+
+  return <div className={cellClass}>{value === 0 ? '' : value}</div>;
 }
 
 function GameBoard({ state, setState }: BoardProps) {
   const handleKeyDown = (e: KeyboardEvent) => {
-    let obj = { board: state.board, canMove:false , score: state.score };
+    let obj = { board: state.board, canMove: false, score: state.score };
 
     if (state.isFail || (state.isSuccess && !state.isContinue)) return;
 
     switch (e.key) {
       case 'ArrowLeft':
         obj = moveBoard(state.board, 0);
-        if(obj.canMove) obj.board = newBlock(obj.board);
+        if (obj.canMove) obj.board = newBlock(obj.board);
         break;
       case 'ArrowDown':
         obj = moveBoard(state.board, 1);
-        if(obj.canMove) obj.board = newBlock(obj.board);
+        if (obj.canMove) obj.board = newBlock(obj.board);
         break;
       case 'ArrowRight':
         obj = moveBoard(state.board, 2);
-        if(obj.canMove) obj.board = newBlock(obj.board);
+        if (obj.canMove) obj.board = newBlock(obj.board);
         break;
       case 'ArrowUp':
         obj = moveBoard(state.board, 3);
-        if(obj.canMove) obj.board = newBlock(obj.board);
+        if (obj.canMove) obj.board = newBlock(obj.board);
         break;
       default:
         return;
@@ -81,7 +94,7 @@ function GameBoard({ state, setState }: BoardProps) {
 
   return (
     <>
-      <div className="board">
+      <div className={styles.board}>
         {state.board.map((row, rowIdx) =>
           row.map((value, colIdx) => (
             <Cell key={10 * rowIdx + colIdx} value={value} />

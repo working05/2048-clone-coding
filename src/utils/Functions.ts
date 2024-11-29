@@ -26,7 +26,7 @@ export const resetGame = (
   });
 };
 
-const newBlock = (board: Board): Board => {
+export const newBlock = (board: Board): Board => {
   const emptyCells: CellPos[] = [];
 
   board.forEach((row, rowIdx) => {

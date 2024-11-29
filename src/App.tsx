@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/global.css';
 
 import { useEffect, useState } from 'react';
 
@@ -6,6 +6,7 @@ import Button from './components/Button';
 import GameBoard from './components/GameBoard';
 import Modal from './components/Modal';
 import type { State } from './components/Types';
+import styles from './styles/App.module.css';
 import { resetGame } from './utils/Functions';
 
 function App() {
@@ -33,16 +34,16 @@ function App() {
 
   return (
     <>
-      <div className="game-title">2048 GAME</div>
+      <div className={styles.gameTitle}>2048 GAME</div>
       <br />
-      <div className="container">
-        <div className="score">
-          <span className="style-text">SCORE</span>
-          <span className="style-num">{state.score}</span>
+      <div className={styles.container}>
+        <div className={styles.score}>
+          <span className={styles.text}>SCORE</span>
+          <span className={styles.number}>{state.score}</span>
         </div>
-        <div className="score">
-          <span className="style-text">BEST</span>
-          <span className="style-num">{state.bestScore}</span>
+        <div className={styles.score}>
+          <span className={styles.text}>BEST</span>
+          <span className={styles.number}>{state.bestScore}</span>
         </div>
         <Button text="New Game" onClick={reset} />
       </div>
