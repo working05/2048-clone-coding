@@ -169,7 +169,8 @@ export const moveBoard = (board: Board, dir: number) => {
   }
 
   return {
-    board: canMove ? newBlock(rotateBoard(movedBoard, 4 - dir)) : board,
+    board: rotateBoard(movedBoard, 4 - dir),
+    canMove: canMove,
     score: scorePlus,
   };
 };
