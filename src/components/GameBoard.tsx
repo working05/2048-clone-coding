@@ -1,12 +1,20 @@
 import type React from 'react';
 import { useEffect } from 'react';
 
+import styles from '../styles/GameBoard.module.css';
 import { checkFail, checkSuccess, moveBoard } from '../utils/Functions';
 import type { State } from './Types';
 
 function Cell({ value }: CellProp) {
-  const cellName = 'cell cell-' + String(value >= 128 ? 128 : value);
-  return <div className={cellName}>{value === 0 ? '' : value}</div>;
+  const baseClass = styles.cell;
+  if (baseClass === undefined) return <></>;
+
+  const cellValueClass = styles[`cell${value >= 128 ? 128 : value}`];
+  if (cellValueClass === undefined) return <></>;
+
+  const cellClass = `${baseClass} ${cellValueClass}`;
+
+  return <div className={cellClass}>{value === 0 ? '' : value}</div>;
 }
 
 function GameBoard({ state, setState }: BoardProps) {
@@ -77,7 +85,7 @@ function GameBoard({ state, setState }: BoardProps) {
 
   return (
     <>
-      <div className="board">
+      <div className={styles.board}>
         {state.board.map((row, rowIdx) =>
           row.map((value, colIdx) => (
             <Cell key={10 * rowIdx + colIdx} value={value} />

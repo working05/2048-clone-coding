@@ -1,3 +1,4 @@
+import styles from '../styles/Modal.module.css';
 import { resetGame } from '../utils/Functions';
 import Button from './Button';
 import type { State } from './Types';
@@ -18,9 +19,9 @@ function Modal({ state, setState }: ModalProp) {
 
   if (state.isFail) {
     return (
-      <div className="modal-overlay">
-        <div className="modal">
-          <div className="message">Game Over!</div>
+      <div className={styles.modalOverlay}>
+        <div className={styles.modal}>
+          <div className={styles.message}>Game Over!</div>
           <Button text="Try Again" onClick={reset} />
         </div>
       </div>
@@ -29,10 +30,10 @@ function Modal({ state, setState }: ModalProp) {
 
   if (state.isSuccess && !state.isContinue) {
     return (
-      <div className="modal-overlay">
-        <div className="modal">
-          <div className="message">You Win!</div>
-          <div className="button-container">
+      <div className={styles.modalOverlay}>
+        <div className={styles.modal}>
+          <div className={styles.message}>You Win!</div>
+          <div className={styles.buttonContainer}>
             <Button text="Keep Going" onClick={continueGame} />
             <Button text="Try Again" onClick={reset} />
           </div>
